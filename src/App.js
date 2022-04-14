@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(
+    JSON.parse(localStorage.getItem('title')) || []
+  );
   const [value, setValue] = useState('');
   const [edit, setEdit] = useState('');
 
@@ -17,6 +19,11 @@ function App() {
     ]);
     setValue('');
   };
+
+  // add item to local Storage when tasks changes
+  useEffect(() => {
+    localStorage.setItem(`title`, JSON.stringify([...tasks]));
+  }, [tasks]);
 
   // Delete items from tasks []
   const deleteTask = (id) => {
@@ -61,7 +68,7 @@ function App() {
                 <button onClick={() => editTask(items.id, items.title)}>
                   Edit
                 </button>
-                <button onClick={() => saveTask(items.id)}>Save</button>
+                  <button onClick={() => saveTask(items.id)}>Save</button>
               </li>
             ))
           ) : (
