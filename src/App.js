@@ -6,7 +6,6 @@ function App() {
   const [value, setValue] = useState('');
   const [edit, setEdit] = useState('');
 
-  console.log(edit);
   // Add items to tasks []
   const addTask = () => {
     setTasks([
@@ -41,7 +40,6 @@ function App() {
       return item;
     });
     setTasks(newTodo);
-    setEdit(null);
   };
 
   return (
@@ -52,18 +50,25 @@ function App() {
         onChange={(e) => setValue(e.target.value)}
       />
       <button onClick={addTask}>Add</button>
+      <button onClick={() => setValue('')}>Reset</button>
       <div>
         <ul>
-          {tasks.map((items) => (
-            <li key={nanoid(2)}>
-              {items.title}
-              <button onClick={() => deleteTask(items.id)}>Delete</button>
-              <button onClick={() => editTask(items.id, items.title)}>
-                Edit
-              </button>
-              <button onClick={() => saveTask(items.id)}>Save</button>
-            </li>
-          ))}
+          {tasks.length !== 0 ? (
+            tasks.map((items) => (
+              <li key={nanoid(2)}>
+                {items.title}
+                <button onClick={() => deleteTask(items.id)}>Delete</button>
+                <button onClick={() => editTask(items.id, items.title)}>
+                  Edit
+                </button>
+                <button onClick={() => saveTask(items.id)}>Save</button>
+              </li>
+            ))
+          ) : (
+            <div>
+              <h1>Додайте ваше перше завдання</h1>
+            </div>
+          )}
         </ul>
       </div>
     </>
