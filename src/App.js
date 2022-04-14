@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { nanoid } from 'nanoid';
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -10,7 +11,7 @@ function App() {
     setTasks([
       ...tasks,
       {
-        id: 1,
+        id: nanoid(2),
         title: value,
       },
     ]);
@@ -28,9 +29,11 @@ function App() {
       <button>Delete</button>
       <button>Edit</button>
       <div>
-        {tasks.map((items) => (
-          <li>{items.title}</li>
-        ))}
+        <ul>
+          {tasks.map((items) => (
+            <li key={nanoid(2)}>{items.title}</li>
+          ))}
+        </ul>
       </div>
     </>
   );
