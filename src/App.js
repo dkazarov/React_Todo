@@ -60,7 +60,6 @@ function App() {
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
-      <button onClick={addTask}>Add</button>
       <button onClick={() => setValue('')}>Reset</button>
       <div>
         <ul>
@@ -84,6 +83,7 @@ function App() {
           )}
         </ul>
       </div>
+      <button onClick={addTask}>Add</button>
     </>
   );
 }
