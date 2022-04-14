@@ -5,8 +5,7 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [value, setValue] = useState('');
 
-  console.log(value);
-
+  // Add items to tasks []
   const addTask = () => {
     setTasks([
       ...tasks,
@@ -15,9 +14,15 @@ function App() {
         title: value,
       },
     ]);
+    setValue('');
   };
 
-  console.log(tasks);
+  // Delete items from tasks []
+  const deleteTask = (id) => {
+    const newTodo = [...tasks].filter((items) => items.id !== id);
+    setTasks(newTodo);
+  };
+
   return (
     <>
       <input
@@ -26,12 +31,15 @@ function App() {
         onChange={(e) => setValue(e.target.value)}
       />
       <button onClick={addTask}>Add</button>
-      <button>Delete</button>
+
       <button>Edit</button>
       <div>
         <ul>
           {tasks.map((items) => (
-            <li key={nanoid(2)}>{items.title}</li>
+            <li key={nanoid(2)}>
+              {items.title}
+              <button onClick={() => deleteTask(items.id)}>Delete</button>
+            </li>
           ))}
         </ul>
       </div>
