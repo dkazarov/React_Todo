@@ -7,6 +7,7 @@ function App() {
   );
   const [value, setValue] = useState('');
   const [edit, setEdit] = useState(false);
+  const [checked, setChecked] = useState(null);
 
   // Add items to tasks []
   const addTask = () => {
@@ -16,6 +17,7 @@ function App() {
         {
           id: nanoid(2),
           title: value,
+          isCompleted: false,
         },
       ]);
       setValue('');
@@ -53,6 +55,13 @@ function App() {
     setEdit(false);
   };
 
+  const checkedTasks = (id) => {
+    const newTodo = [...tasks].find((item) => item.id === id);
+    newTodo.isCompleted = !newTodo.isCompleted;
+    console.log(newTodo);
+    setChecked(newTodo);
+  };
+
   return (
     <>
       <input
@@ -66,14 +75,20 @@ function App() {
           {tasks.length !== 0 ? (
             tasks.map((items) => (
               <li key={nanoid(2)}>
-                {items.title}
-                <button onClick={() => deleteTask(items.id)}>Delete</button>
-                <button onClick={() => editTask(items.id, items.title)}>
-                  Edit
-                </button>
-                {edit === items.id ? (
-                  <button onClick={() => saveTask(items.id)}>Save</button>
-                ) : null}
+                <label>
+                  <input
+                    type="checkbox"
+                    onChange={() => checkedTasks(items.id)}
+                  />
+                  {items.title}
+                  <button onClick={() => deleteTask(items.id)}>Delete</button>
+                  <button onClick={() => editTask(items.id, items.title)}>
+                    Edit
+                  </button>
+                  {edit === items.id ? (
+                    <button onClick={() => saveTask(items.id)}>Save</button>
+                  ) : null}
+                </label>
               </li>
             ))
           ) : (
