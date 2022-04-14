@@ -6,7 +6,7 @@ function App() {
     JSON.parse(localStorage.getItem('title')) || []
   );
   const [value, setValue] = useState('');
-  const [edit, setEdit] = useState('');
+  const [edit, setEdit] = useState(false);
 
   // Add items to tasks []
   const addTask = () => {
@@ -34,8 +34,9 @@ function App() {
 
   //Edit item from tasks []
   const editTask = (id, title) => {
-    setEdit(id);
+    setValue(id);
     setValue(title);
+    setEdit(id);
   };
 
   // Save item after edit to tasks []
@@ -47,6 +48,7 @@ function App() {
       return item;
     });
     setTasks(newTodo);
+    setEdit(false)
   };
 
   return (
@@ -68,7 +70,9 @@ function App() {
                 <button onClick={() => editTask(items.id, items.title)}>
                   Edit
                 </button>
+                {edit === items.id ? (
                   <button onClick={() => saveTask(items.id)}>Save</button>
+                ) : null}
               </li>
             ))
           ) : (
