@@ -10,14 +10,16 @@ function App() {
 
   // Add items to tasks []
   const addTask = () => {
-    setTasks([
-      ...tasks,
-      {
-        id: nanoid(2),
-        title: value,
-      },
-    ]);
-    setValue('');
+    if (value) {
+      setTasks([
+        ...tasks,
+        {
+          id: nanoid(2),
+          title: value,
+        },
+      ]);
+      setValue('');
+    }
   };
 
   // add item to local Storage when tasks changes
@@ -48,7 +50,7 @@ function App() {
       return item;
     });
     setTasks(newTodo);
-    setEdit(false)
+    setEdit(false);
   };
 
   return (
