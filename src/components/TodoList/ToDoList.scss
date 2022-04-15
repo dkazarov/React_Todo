@@ -26,3 +26,18 @@
   transition: 0.5s all;
   transform: translateY(-5px);
 }
+
+.todo__li.finished {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  text-decoration: line-through;
+  border-radius: 10px;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.425);
+  margin-bottom: 20px;
+  transition: 0.5s all;
+}

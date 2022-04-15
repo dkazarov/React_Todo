@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import Checkbox from '@mui/material/Checkbox';
 import EditIcon from '@mui/icons-material/Edit';
@@ -10,7 +10,7 @@ import './ToDoList.scss';
 
 const ToDoList = ({ tasks, setTasks, setEdit, setValue, value, edit }) => {
   //Local State
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = useState(false);
 
   //Delete task from state tasks[]
   const deleteTask = (id) => {
@@ -20,8 +20,11 @@ const ToDoList = ({ tasks, setTasks, setEdit, setValue, value, edit }) => {
 
   // Change state checkbox
   const changeTaskStatus = (event) => {
+    event.stopPropagation();
     setChecked(event.target.checked);
   };
+
+  console.log(checked);
 
   // Edit item from tasks []
   const editTask = (id, title) => {
@@ -47,8 +50,9 @@ const ToDoList = ({ tasks, setTasks, setEdit, setValue, value, edit }) => {
       {tasks &&
         tasks.map((items) => (
           <label key={nanoid(2)}>
-            <li className="todo__li">
+            <li className={!checked ? 'todo__li' : 'todo__li finished'}>
               <Checkbox
+                // defaultChecked
                 checked={items.checked}
                 onChange={changeTaskStatus}
                 inputProps={{ 'aria-label': 'controlled' }}
