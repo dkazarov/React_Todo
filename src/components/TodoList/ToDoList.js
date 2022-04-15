@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import Checkbox from '@mui/material/Checkbox';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Tooltip from '@mui/material/Tooltip';
 
 import './ToDoList.scss';
 
@@ -54,11 +55,24 @@ const ToDoList = ({ tasks, setTasks, setEdit, setValue }) => {
               />
               {items.title}
               <div className="todo__icons-inner">
-                <span className="finished">
-                  {<EditIcon color="primary" sx={{ cursor: 'pointer' }} />}
+                <span className="finished" className="todo__li--hover">
+                  <Tooltip title="Редагувати">
+                    {<EditIcon color="primary" sx={{ cursor: 'pointer' }} />}
+                  </Tooltip>
                 </span>
-                <span onClick={() => deleteTask(items.id)}>
-                  <DeleteIcon sx={{ color: 'crimson', cursor: 'pointer' }} />
+                <span
+                  onClick={() => deleteTask(items.id)}
+                  className="todo__li--hover"
+                >
+                  <Tooltip title="Видалити">
+                    <DeleteIcon
+                      sx={{
+                        color: 'crimson',
+                        cursor: 'pointer',
+                        hover: { fontSize: '50px' },
+                      }}
+                    />
+                  </Tooltip>
                 </span>
               </div>
             </li>

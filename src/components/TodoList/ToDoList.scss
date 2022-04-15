@@ -9,6 +9,7 @@
   cursor: pointer;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.425);
   margin-bottom: 20px;
+  transition: 0.5s all;
 }
 
 .todo__icons-inner {
@@ -19,4 +20,9 @@
 
 .todo__icons-inner span {
   padding: 0 10px;
+}
+
+.todo__li--hover:hover {
+  transition: 0.5s all;
+  transform: translateY(-5px);
 }
