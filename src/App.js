@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from '@mui/material/Container';
 import Header from './components/Header/Header';
 import AddTasks from './components/TodoList/AddTasks';
@@ -10,7 +10,7 @@ function App() {
   const [tasks, setTasks] = useState(
     JSON.parse(localStorage.getItem('title')) || []
   );
-  // const [value, setValue] = useState('');
+
   // const [edit, setEdit] = useState(false);
   // const [checked, setChecked] = useState(null);
 
@@ -47,15 +47,17 @@ function App() {
   //   setChecked(newTodo);
   // };
 
+  //add item to local Storage when tasks changes
+  useEffect(() => {
+    localStorage.setItem(`title`, JSON.stringify([...tasks]));
+  }, [tasks]);
+
   return (
     <>
       <Header />
       <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
-        <AddTasks />
-        <ToDoList
-          tasks={tasks}
-          setTasks={setTasks}
-        />
+        <AddTasks setTasks={setTasks} tasks={tasks} />
+        <ToDoList tasks={tasks} setTasks={setTasks} />
       </Container>
     </>
   );
