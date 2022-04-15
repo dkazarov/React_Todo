@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
+import Container from '@mui/material/Container';
+import SearchAppBar from './components/Header';
 
 function App() {
   const [tasks, setTasks] = useState(
@@ -64,41 +66,44 @@ function App() {
 
   return (
     <>
-      <input
-        type="text"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      />
-      <button onClick={() => setValue('')}>Reset</button>
-      <div>
-        <ul>
-          {tasks.length !== 0 ? (
-            tasks.map((items) => (
-              <li key={nanoid(2)}>
-                <label>
-                  <input
-                    type="checkbox"
-                    onChange={() => checkedTasks(items.id)}
-                  />
-                  {items.title}
-                  <button onClick={() => deleteTask(items.id)}>Delete</button>
-                  <button onClick={() => editTask(items.id, items.title)}>
-                    Edit
-                  </button>
-                  {edit === items.id ? (
-                    <button onClick={() => saveTask(items.id)}>Save</button>
-                  ) : null}
-                </label>
-              </li>
-            ))
-          ) : (
-            <div>
-              <h1>Додайте ваше перше завдання</h1>
-            </div>
-          )}
-        </ul>
-      </div>
-      <button onClick={addTask}>Add</button>
+      <SearchAppBar />
+      <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+        <button onClick={() => setValue('')}>Reset</button>
+        <div>
+          <ul>
+            {tasks.length !== 0 ? (
+              tasks.map((items) => (
+                <li key={nanoid(2)}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      onChange={() => checkedTasks(items.id)}
+                    />
+                    {items.title}
+                    <button onClick={() => deleteTask(items.id)}>Delete</button>
+                    <button onClick={() => editTask(items.id, items.title)}>
+                      Edit
+                    </button>
+                    {edit === items.id ? (
+                      <button onClick={() => saveTask(items.id)}>Save</button>
+                    ) : null}
+                  </label>
+                </li>
+              ))
+            ) : (
+              <div>
+                <h1>Додайте ваше перше завдання</h1>
+              </div>
+            )}
+          </ul>
+        </div>
+        <button onClick={addTask}>Add</button>
+      </Container>
     </>
   );
 }
