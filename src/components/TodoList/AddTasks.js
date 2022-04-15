@@ -14,6 +14,7 @@ const AddTasks = ({ tasks, setTasks, value, setValue }) => {
         {
           id: nanoid(2),
           title: value,
+          isCompleted: false,
         },
       ]);
       setValue('');
