@@ -53,7 +53,10 @@ const ToDoList = ({ tasks, setTasks, setEdit, setValue, value, edit }) => {
     <ul>
       {tasks.length !== 0 ? (
         tasks.map((items) => (
-          <li key={nanoid(2)} className="todo__li">
+          <li
+            key={nanoid(2)}
+            className={!items.isCompleted ? 'todo__li' : 'todo__li finished'}
+          >
             <Checkbox
               checked={items.isCompleted}
               onChange={() => changeStatusTask(items.id)}
