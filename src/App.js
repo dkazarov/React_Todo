@@ -10,42 +10,8 @@ function App() {
   const [tasks, setTasks] = useState(
     JSON.parse(localStorage.getItem('title')) || []
   );
-
-  // const [edit, setEdit] = useState(false);
-  // const [checked, setChecked] = useState(null);
-
-  // Delete items from tasks []
-  // const deleteTask = (id) => {
-  //   const newTodo = [...tasks].filter((items) => items.id !== id);
-  //   setTasks(newTodo);
-  //   setValue('');
-  // };
-
-  //Edit item from tasks []
-  // const editTask = (id, title) => {
-  //   setValue(id);
-  //   setValue(title);
-  //   setEdit(id);
-  // };
-
-  // Save item after edit to tasks []
-  // const saveTask = (id) => {
-  //   let newTodo = [...tasks].filter((item) => {
-  //     if (item.id === id) {
-  //       item.title = value;
-  //     }
-  //     return item;
-  //   });
-  //   setTasks(newTodo);
-  //   setEdit(false);
-  // };
-
-  // const checkedTasks = (id) => {
-  //   const newTodo = [...tasks].find((item) => item.id === id);
-  //   newTodo.isCompleted = !newTodo.isCompleted;
-  //   console.log(newTodo);
-  //   setChecked(newTodo);
-  // };
+  const [value, setValue] = useState('');
+  const [edit, setEdit] = useState(false);
 
   //add item to local Storage when tasks changes
   useEffect(() => {
@@ -56,8 +22,19 @@ function App() {
     <>
       <Header />
       <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
-        <AddTasks setTasks={setTasks} tasks={tasks} />
-        <ToDoList tasks={tasks} setTasks={setTasks} />
+        <AddTasks
+          setTasks={setTasks}
+          tasks={tasks}
+          setValue={setValue}
+          value={value}
+        />
+        <ToDoList
+          tasks={tasks}
+          setTasks={setTasks}
+          edit={edit}
+          setEdit={setEdit}
+          setValue={setValue}
+        />
       </Container>
     </>
   );

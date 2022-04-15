@@ -5,9 +5,8 @@ import Button from '@mui/material/Button';
 
 import './AddTasks.scss';
 
-const AddTasks = ({ tasks, setTasks }) => {
-  // State
-  const [value, setValue] = useState('');
+const AddTasks = ({ tasks, setTasks, value, setValue }) => {
+
 
   // Add items to tasks []
   const addTodo = () => {
@@ -17,13 +16,12 @@ const AddTasks = ({ tasks, setTasks }) => {
         {
           id: nanoid(2),
           title: value,
+          defaultChecked: value,
         },
       ]);
       setValue('');
     }
   };
-
-  console.log(value);
 
   return (
     <div className="add__task-inner">
@@ -35,7 +33,7 @@ const AddTasks = ({ tasks, setTasks }) => {
         sx={{ width: '80%' }}
       />
       <Button variant="contained" onClick={addTodo}>
-        Add Task
+        Додати
       </Button>
     </div>
   );

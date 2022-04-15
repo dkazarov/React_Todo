@@ -6,9 +6,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import './ToDoList.scss';
 
-const ToDoList = ({ tasks, setTasks }) => {
+const ToDoList = ({ tasks, setTasks, setEdit, setValue }) => {
   //Local State
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = React.useState(false);
 
   //Delete task from state tasks[]
   const deleteTask = (id) => {
@@ -17,9 +17,29 @@ const ToDoList = ({ tasks, setTasks }) => {
   };
 
   // Change state checkbox
-  const checkedTask = (event) => {
+  const changeTaskStatus = (event) => {
     setChecked(event.target.checked);
   };
+
+  // Edit item from tasks []
+  // const editTask = (id, title) => {
+  //   setValue(id);
+  //   setValue(title);
+  //   setEdit(id);
+  //   console.log(1)
+  // };
+
+  // Save item after edit to tasks []
+  // const saveTask = (id) => {
+  //   let newTodo = [...tasks].filter((item) => {
+  //     if (item.id === id) {
+  //       item.title = value;
+  //     }
+  //     return item;
+  //   });
+  //   setTasks(newTodo);
+  //   setEdit(false);
+  // };
 
   return (
     <ul>
@@ -28,8 +48,8 @@ const ToDoList = ({ tasks, setTasks }) => {
           <label key={nanoid(2)}>
             <li className="todo__li">
               <Checkbox
-                checked={checked}
-                onChange={checkedTask}
+                checked={items.checked}
+                onChange={changeTaskStatus}
                 inputProps={{ 'aria-label': 'controlled' }}
               />
               {items.title}
