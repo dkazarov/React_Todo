@@ -52,7 +52,10 @@ function App() {
       <Header />
       <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
         <AddTasks />
-        <ToDoList tasks={tasks} setTasks={setTasks} />
+        <ToDoList
+          tasks={tasks}
+          setTasks={setTasks}
+        />
       </Container>
     </>
   );
