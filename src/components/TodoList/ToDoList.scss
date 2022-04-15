@@ -1,0 +1,20 @@
+.todo__li {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 10px;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.todo__icons-inner {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.todo__icons-inner span {
+  padding: 0 10px;
+}
