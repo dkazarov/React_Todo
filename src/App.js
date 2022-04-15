@@ -3,6 +3,8 @@ import { nanoid } from 'nanoid';
 import Container from '@mui/material/Container';
 import SearchAppBar from './components/Header';
 
+import './App.scss';
+
 function App() {
   const [tasks, setTasks] = useState(
     JSON.parse(localStorage.getItem('title')) || []
