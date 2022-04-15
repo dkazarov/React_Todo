@@ -47,7 +47,7 @@ const ToDoList = ({ tasks, setTasks, setEdit, setValue, value, edit }) => {
 
   return (
     <ul>
-      {tasks &&
+      {tasks.length !== 0 ? (
         tasks.map((items) => (
           <label key={nanoid(2)}>
             <li className={!checked ? 'todo__li' : 'todo__li finished'}>
@@ -99,7 +99,12 @@ const ToDoList = ({ tasks, setTasks, setEdit, setValue, value, edit }) => {
               </div>
             </li>
           </label>
-        ))}
+        ))
+      ) : (
+        <div>
+          <h1>Додайте ваше перше завдання</h1>
+        </div>
+      )}
     </ul>
   );
 };
