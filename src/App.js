@@ -13,7 +13,7 @@ function App() {
   const [value, setValue] = useState('');
   const [edit, setEdit] = useState(false);
 
-  //add item to local Storage when tasks changes
+  //add item on load to local Storage when tasks changes
   useEffect(() => {
     localStorage.setItem(`title`, JSON.stringify([...tasks]));
   }, [tasks]);
@@ -29,6 +29,7 @@ function App() {
           value={value}
         />
         <ToDoList
+          value={value}
           tasks={tasks}
           setTasks={setTasks}
           edit={edit}

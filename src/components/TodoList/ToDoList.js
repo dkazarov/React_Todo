@@ -3,11 +3,12 @@ import { nanoid } from 'nanoid';
 import Checkbox from '@mui/material/Checkbox';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
 import Tooltip from '@mui/material/Tooltip';
 
 import './ToDoList.scss';
 
-const ToDoList = ({ tasks, setTasks, setEdit, setValue }) => {
+const ToDoList = ({ tasks, setTasks, setEdit, setValue, value, edit }) => {
   //Local State
   const [checked, setChecked] = React.useState(false);
 
@@ -23,43 +24,59 @@ const ToDoList = ({ tasks, setTasks, setEdit, setValue }) => {
   };
 
   // Edit item from tasks []
-  // const editTask = (id, title) => {
-  //   setValue(id);
-  //   setValue(title);
-  //   setEdit(id);
-  //   console.log(1)
-  // };
+  const editTask = (id, title) => {
+    setValue(id);
+    setValue(title);
+    setEdit(id);
+  };
 
-  // Save item after edit to tasks []
-  // const saveTask = (id) => {
-  //   let newTodo = [...tasks].filter((item) => {
-  //     if (item.id === id) {
-  //       item.title = value;
-  //     }
-  //     return item;
-  //   });
-  //   setTasks(newTodo);
-  //   setEdit(false);
-  // };
+  //Save item after edit to tasks []
+  const saveTask = (id) => {
+    let newTodo = [...tasks].filter((item) => {
+      if (item.id === id) {
+        item.title = value;
+      }
+      return item;
+    });
+    setTasks(newTodo);
+    setEdit(false);
+  };
 
   return (
     <ul>
       {tasks &&
         tasks.map((items) => (
-          <label key={nanoid(2)}>
-            <li className="todo__li">
-              <Checkbox
-                checked={items.checked}
-                onChange={changeTaskStatus}
-                inputProps={{ 'aria-label': 'controlled' }}
-              />
-              {items.title}
-              <div className="todo__icons-inner">
-                <span className="finished" className="todo__li--hover">
-                  <Tooltip title="Редагувати">
-                    {<EditIcon color="primary" sx={{ cursor: 'pointer' }} />}
+          // <label key={nanoid(2)}>
+          <li className="todo__li" key={nanoid(2)}>
+            <Checkbox
+              checked={items.checked}
+              onChange={changeTaskStatus}
+              inputProps={{ 'aria-label': 'controlled' }}
+            />
+            {items.title}
+            <div className="todo__icons-inner">
+              <span
+                onChange={(e) => editTask(e.target.value)}
+                onClick={() => editTask(items.id, items.title)}
+                className="finished todo__li--hover"
+              >
+                <Tooltip title="Редагувати">
+                  {<EditIcon color="primary" sx={{ cursor: 'pointer' }} />}
+                </Tooltip>
+              </span>
+              {edit === items.id ? (
+                <span onClick={() => saveTask(items.id, items.title)}>
+                  <Tooltip title="Зберегти">
+                    <SaveAsIcon
+                      sx={{
+                        color: 'green',
+                        cursor: 'pointer',
+                        hover: { fontSize: '50px' },
+                      }}
+                    />
                   </Tooltip>
                 </span>
+              ) : (
                 <span
                   onClick={() => deleteTask(items.id)}
                   className="todo__li--hover"
@@ -74,9 +91,10 @@ const ToDoList = ({ tasks, setTasks, setEdit, setValue }) => {
                     />
                   </Tooltip>
                 </span>
-              </div>
-            </li>
-          </label>
+              )}
+            </div>
+          </li>
+          // </label>
         ))}
     </ul>
   );

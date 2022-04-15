@@ -6,8 +6,6 @@ import Button from '@mui/material/Button';
 import './AddTasks.scss';
 
 const AddTasks = ({ tasks, setTasks, value, setValue }) => {
-
-
   // Add items to tasks []
   const addTodo = () => {
     if (value) {
@@ -16,7 +14,6 @@ const AddTasks = ({ tasks, setTasks, value, setValue }) => {
         {
           id: nanoid(2),
           title: value,
-          defaultChecked: value,
         },
       ]);
       setValue('');
