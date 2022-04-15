@@ -46,55 +46,55 @@ const ToDoList = ({ tasks, setTasks, setEdit, setValue, value, edit }) => {
     <ul>
       {tasks &&
         tasks.map((items) => (
-          // <label key={nanoid(2)}>
-          <li className="todo__li" key={nanoid(2)}>
-            <Checkbox
-              checked={items.checked}
-              onChange={changeTaskStatus}
-              inputProps={{ 'aria-label': 'controlled' }}
-            />
-            {items.title}
-            <div className="todo__icons-inner">
-              <span
-                onChange={(e) => editTask(e.target.value)}
-                onClick={() => editTask(items.id, items.title)}
-                className="finished todo__li--hover"
-              >
-                <Tooltip title="Редагувати">
-                  {<EditIcon color="primary" sx={{ cursor: 'pointer' }} />}
-                </Tooltip>
-              </span>
-              {edit === items.id ? (
-                <span onClick={() => saveTask(items.id, items.title)}>
-                  <Tooltip title="Зберегти">
-                    <SaveAsIcon
-                      sx={{
-                        color: 'green',
-                        cursor: 'pointer',
-                        hover: { fontSize: '50px' },
-                      }}
-                    />
-                  </Tooltip>
-                </span>
-              ) : (
+          <label key={nanoid(2)}>
+            <li className="todo__li">
+              <Checkbox
+                checked={items.checked}
+                onChange={changeTaskStatus}
+                inputProps={{ 'aria-label': 'controlled' }}
+              />
+              {items.title}
+              <div className="todo__icons-inner">
                 <span
-                  onClick={() => deleteTask(items.id)}
-                  className="todo__li--hover"
+                  onChange={(e) => editTask(e.target.value)}
+                  onClick={() => editTask(items.id, items.title)}
+                  className="finished todo__li--hover"
                 >
-                  <Tooltip title="Видалити">
-                    <DeleteIcon
-                      sx={{
-                        color: 'crimson',
-                        cursor: 'pointer',
-                        hover: { fontSize: '50px' },
-                      }}
-                    />
+                  <Tooltip title="Редагувати">
+                    {<EditIcon color="primary" sx={{ cursor: 'pointer' }} />}
                   </Tooltip>
                 </span>
-              )}
-            </div>
-          </li>
-          // </label>
+                {edit === items.id ? (
+                  <span onClick={() => saveTask(items.id, items.title)}>
+                    <Tooltip title="Зберегти">
+                      <SaveAsIcon
+                        sx={{
+                          color: 'green',
+                          cursor: 'pointer',
+                          hover: { fontSize: '50px' },
+                        }}
+                      />
+                    </Tooltip>
+                  </span>
+                ) : (
+                  <span
+                    onClick={() => deleteTask(items.id)}
+                    className="todo__li--hover"
+                  >
+                    <Tooltip title="Видалити">
+                      <DeleteIcon
+                        sx={{
+                          color: 'crimson',
+                          cursor: 'pointer',
+                          hover: { fontSize: '50px' },
+                        }}
+                      />
+                    </Tooltip>
+                  </span>
+                )}
+              </div>
+            </li>
+          </label>
         ))}
     </ul>
   );
