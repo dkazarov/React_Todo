@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import { nanoid } from 'nanoid';
 import Button from '@mui/material/Button';
@@ -6,9 +6,15 @@ import Button from '@mui/material/Button';
 import './AddTasks.scss';
 
 const AddTasks = ({ tasks, setTasks, value, setValue, error, setError }) => {
+  const inputRef = useRef();
 
-  // Tracking state error <TextField> components
+  // Tracking state error <TextField> components & click beyond the borders input
   useEffect(() => {
+    window.addEventListener('click', (e) => {
+      if (!e.path.includes(inputRef.current)) {
+        setError((value = false));
+      }
+    });
     setError((value = false));
   }, [value]);
   // Add items to tasks []
@@ -30,7 +36,7 @@ const AddTasks = ({ tasks, setTasks, value, setValue, error, setError }) => {
   };
 
   return (
-    <div className="add__task-inner">
+    <div ref={inputRef} className="add__task-inner">
       {!error ? (
         <TextField
           label="Додати нове завдання"
