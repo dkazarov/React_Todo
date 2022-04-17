@@ -15,7 +15,7 @@ const AddTasks = ({ tasks, setTasks, value, setValue, error, setError }) => {
         setError((value = false));
       }
     });
-    setError((value = false));
+    setError((error = false));
   }, [value]);
   // Add items to tasks []
   const addTodo = () => {
