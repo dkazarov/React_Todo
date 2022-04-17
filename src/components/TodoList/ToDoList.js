@@ -56,10 +56,15 @@ const ToDoList = ({
     );
   };
 
+  // Filtered data
+  const filteredTasks = tasks.filter((item) =>
+    item.title.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
   return (
     <ul>
       {tasks.length !== 0 ? (
-        tasks.map((items) => (
+        filteredTasks.map((items) => (
           <li
             key={nanoid(2)}
             className={!items.isCompleted ? 'todo__li' : 'todo__li finished'}
