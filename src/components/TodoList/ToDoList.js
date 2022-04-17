@@ -8,7 +8,15 @@ import Tooltip from '@mui/material/Tooltip';
 
 import './ToDoList.scss';
 
-const ToDoList = ({ tasks, setTasks, setEdit, setValue, value, edit }) => {
+const ToDoList = ({
+  tasks,
+  setTasks,
+  setEdit,
+  setValue,
+  value,
+  edit,
+  searchValue,
+}) => {
   //Delete task from state tasks[]
   const deleteTask = (id) => {
     let newList = [...tasks].filter((item) => item.id !== id);
@@ -34,6 +42,7 @@ const ToDoList = ({ tasks, setTasks, setEdit, setValue, value, edit }) => {
     setEdit(false);
   };
 
+  // Change status checkbox
   const changeStatusTask = (id) => {
     setTasks(
       tasks.map((todo) => {
@@ -46,8 +55,6 @@ const ToDoList = ({ tasks, setTasks, setEdit, setValue, value, edit }) => {
       })
     );
   };
-
-  console.log(tasks);
 
   return (
     <ul>

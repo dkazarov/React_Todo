@@ -12,6 +12,7 @@ function App() {
   );
   const [value, setValue] = useState('');
   const [edit, setEdit] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
 
   //add item on load to local Storage when tasks changes
   useEffect(() => {
@@ -20,7 +21,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header setSearchValue={setSearchValue} />
       <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
         <AddTasks
           setTasks={setTasks}
@@ -29,6 +30,7 @@ function App() {
           value={value}
         />
         <ToDoList
+          searchValue={searchValue}
           value={value}
           tasks={tasks}
           setTasks={setTasks}
