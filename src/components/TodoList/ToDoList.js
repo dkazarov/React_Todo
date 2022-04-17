@@ -16,6 +16,7 @@ const ToDoList = ({
   value,
   edit,
   searchValue,
+  enqueueSnackbar,
 }) => {
   //Delete task from state tasks[]
   const deleteTask = (id) => {
@@ -66,7 +67,7 @@ const ToDoList = ({
       {tasks.length !== 0 ? (
         filteredTasks.map((items) => (
           <li
-            key={nanoid(2)}
+            key={nanoid(3)}
             className={!items.isCompleted ? 'todo__li' : 'todo__li finished'}
           >
             <Checkbox

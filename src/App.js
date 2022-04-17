@@ -3,6 +3,7 @@ import Container from '@mui/material/Container';
 import Header from './components/Header/Header';
 import AddTasks from './components/AddTasks/AddTasks';
 import ToDoList from './components/TodoList/ToDoList';
+import { SnackbarProvider, useSnackbar } from 'notistack';
 
 import './App.scss';
 
@@ -14,6 +15,7 @@ function App() {
   const [edit, setEdit] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [error, setError] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   //add item on load to local Storage when tasks changes
   useEffect(() => {
@@ -25,6 +27,7 @@ function App() {
       <Header setSearchValue={setSearchValue} />
       <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
         <AddTasks
+          enqueueSnackbar={enqueueSnackbar}
           error={error}
           setError={setError}
           setTasks={setTasks}

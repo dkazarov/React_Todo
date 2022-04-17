@@ -3,9 +3,18 @@ import TextField from '@mui/material/TextField';
 import { nanoid } from 'nanoid';
 import Button from '@mui/material/Button';
 
+
 import './AddTasks.scss';
 
-const AddTasks = ({ tasks, setTasks, value, setValue, error, setError }) => {
+const AddTasks = ({
+  tasks,
+  setTasks,
+  value,
+  setValue,
+  error,
+  setError,
+  enqueueSnackbar,
+}) => {
   const inputRef = useRef();
 
   // Tracking state error <TextField> components & click beyond the borders input
@@ -18,7 +27,7 @@ const AddTasks = ({ tasks, setTasks, value, setValue, error, setError }) => {
     setError((error = false));
   }, [value]);
   // Add items to tasks []
-  const addTodo = () => {
+  const addTodo = (variant) => () => {
     if (value) {
       setTasks([
         ...tasks,
@@ -30,6 +39,7 @@ const AddTasks = ({ tasks, setTasks, value, setValue, error, setError }) => {
       ]);
       setError((error = false));
       setValue('');
+      enqueueSnackbar('Завдання додано', { variant });
     } else {
       setError((error = true));
     }
@@ -56,7 +66,7 @@ const AddTasks = ({ tasks, setTasks, value, setValue, error, setError }) => {
         />
       )}
 
-      <Button variant="contained" onClick={addTodo}>
+      <Button variant="contained" onClick={addTodo('success')}>
         Додати
       </Button>
     </div>
