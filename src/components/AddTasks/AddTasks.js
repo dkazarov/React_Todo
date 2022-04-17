@@ -10,12 +10,7 @@ const AddTasks = ({ tasks, setTasks, value, setValue, error, setError }) => {
 
   // Tracking state error <TextField> components & click beyond the borders input
   useEffect(() => {
-    window.addEventListener('click', (e) => {
-      if (!e.path.includes(inputRef.current)) {
-        setError((value = false));
-      }
-    });
-    setError((value = false));
+    setError((error = false));
   }, [value]);
   // Add items to tasks []
   const addTodo = () => {
@@ -28,8 +23,8 @@ const AddTasks = ({ tasks, setTasks, value, setValue, error, setError }) => {
           isCompleted: false,
         },
       ]);
-      setValue('');
       setError((error = false));
+      setValue('');
     } else {
       setError((error = true));
     }
