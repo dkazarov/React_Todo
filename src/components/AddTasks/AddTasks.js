@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import { nanoid } from 'nanoid';
 import Button from '@mui/material/Button';
@@ -7,7 +7,10 @@ import './AddTasks.scss';
 
 const AddTasks = ({ tasks, setTasks, value, setValue, error, setError }) => {
 
-
+  // Tracking state error <TextField> components
+  useEffect(() => {
+    setError((value = false));
+  }, [value]);
   // Add items to tasks []
   const addTodo = () => {
     if (value) {
