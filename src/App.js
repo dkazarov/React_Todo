@@ -13,6 +13,7 @@ function App() {
   const [value, setValue] = useState('');
   const [edit, setEdit] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const [error, setError] = useState(false);
 
   //add item on load to local Storage when tasks changes
   useEffect(() => {
@@ -24,6 +25,8 @@ function App() {
       <Header setSearchValue={setSearchValue} />
       <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
         <AddTasks
+          error={error}
+          setError={setError}
           setTasks={setTasks}
           tasks={tasks}
           setValue={setValue}
