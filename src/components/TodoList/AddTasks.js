@@ -38,8 +38,3 @@ const AddTasks = ({ tasks, setTasks, value, setValue }) => {
 };
 
 export default AddTasks;
-
-// add item to local Storage when tasks changes
-// useEffect(() => {
-//   localStorage.setItem(`title`, JSON.stringify([...tasks]));
-// }, [tasks]);

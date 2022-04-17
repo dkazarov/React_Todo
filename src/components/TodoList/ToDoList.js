@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { nanoid } from 'nanoid';
 import Checkbox from '@mui/material/Checkbox';
 import EditIcon from '@mui/icons-material/Edit';
@@ -73,11 +73,6 @@ const ToDoList = ({
               checked={items.isCompleted}
               onChange={() => changeStatusTask(items.id)}
             />
-            {/* <input
-              type="checkbox"
-              checked={items.isCompleted}
-              onChange={() => changeStatusTask(items.id)}
-            /> */}
             {items.title}
             <div className="todo__icons-inner">
               <span
