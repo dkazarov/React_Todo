@@ -6,6 +6,8 @@ import Button from '@mui/material/Button';
 import './AddTasks.scss';
 
 const AddTasks = ({ tasks, setTasks, value, setValue, error, setError }) => {
+
+
   // Add items to tasks []
   const addTodo = () => {
     if (value) {
@@ -23,8 +25,6 @@ const AddTasks = ({ tasks, setTasks, value, setValue, error, setError }) => {
       setError((error = true));
     }
   };
-
-  console.log(error);
 
   return (
     <div className="add__task-inner">

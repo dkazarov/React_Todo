@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Container from '@mui/material/Container';
 import Header from './components/Header/Header';
-import AddTasks from './components/TodoList/AddTasks';
+import AddTasks from './components/AddTasks/AddTasks';
 import ToDoList from './components/TodoList/ToDoList';
 
 import './App.scss';
