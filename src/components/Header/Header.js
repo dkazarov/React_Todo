@@ -64,7 +64,7 @@ export default function Header({ setSearchValue }) {
               textAlign: 'center',
             }}
           >
-            React Todo State
+            Reactive Todo
           </Typography>
           <Search>
             <SearchIconWrapper>
