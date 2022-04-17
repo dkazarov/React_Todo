@@ -11,3 +11,4 @@ Functional:
 - Change tasks
 - Search todo
 - Change status todo
+- Save your todo to Local Storage
