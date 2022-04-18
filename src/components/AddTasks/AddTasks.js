@@ -48,7 +48,7 @@ const AddTasks = ({
 
   return (
     <div ref={inputRef} className="add__task-inner">
-      <Box sx={{ width: '100%', maxWidth: 500 }}>
+      <Box sx={{ width: '100%' }}>
         <Typography
           variant="h4"
           component="div"
@@ -56,7 +56,7 @@ const AddTasks = ({
           sx={{
             flexGrow: 1,
             display: { xs: 'block', sm: 'none' },
-            marginBottom: '1%',
+            marginBottom: '3%',
           }}
         >
           Reactive Todo

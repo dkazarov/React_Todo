@@ -54,7 +54,7 @@ export default function Header({ setSearchValue }) {
     <Box
       sx={{
         flexGrow: 1,
-        marginBottom: '10%',
+        marginBottom: '8%',
       }}
     >
       <AppBar position="static" color="">

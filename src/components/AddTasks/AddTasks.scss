@@ -1,9 +1,15 @@
 .add__task-inner {
   display: flex;
-  margin-bottom: 8%;
+  margin-bottom: 1%;
   justify-content: center;
 }
 
 .add__task-title {
   display: block !important;
+}
+
+@media (max-width: 490px) {
+  .add__task-inner {
+    margin-bottom: 5%;
+  }
 }

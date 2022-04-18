@@ -5,6 +5,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import Tooltip from '@mui/material/Tooltip';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Button from '@mui/material/Button';
 
 import './ToDoList.scss';
 
@@ -16,7 +18,6 @@ const ToDoList = ({
   value,
   edit,
   searchValue,
-  enqueueSnackbar,
 }) => {
   //Delete task from state tasks[]
   const deleteTask = (id) => {
@@ -64,6 +65,15 @@ const ToDoList = ({
 
   return (
     <ul className="todo__inner">
+      <ButtonGroup
+        size="small"
+        aria-label="small button group"
+        sx={{ marginBottom: '7%' }}
+      >
+        <Button>Всі</Button>
+        <Button>Відкриті</Button>
+        <Button>Завершені</Button>
+      </ButtonGroup>
       {tasks.length !== 0 ? (
         filteredTasks.map((items) => (
           <li
