@@ -56,7 +56,7 @@ const AddTasks = ({
           sx={{
             flexGrow: 1,
             display: { xs: 'block', sm: 'none' },
-            marginBottom: 3,
+            marginBottom: '1%',
           }}
         >
           Reactive Todo
@@ -68,7 +68,7 @@ const AddTasks = ({
             variant="standard"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            sx={{ width: '80%', marginBottom: 2 }}
+            sx={{ width: '80%', marginBottom: '7%' }}
           />
         ) : (
           <TextField
@@ -77,7 +77,7 @@ const AddTasks = ({
             variant="standard"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            sx={{ width: '80%', marginBottom: 2 }}
+            sx={{ width: '80%', marginBottom: '7%' }}
           />
         )}
 
