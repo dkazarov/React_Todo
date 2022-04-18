@@ -30,6 +30,10 @@
   transform: translateY(-5px);
 }
 
+.finished .todo__li--hover {
+  background-color: rgba(255, 4, 4, 0.2);
+}
+
 .todo__li.finished {
   display: flex;
   justify-content: space-between;
