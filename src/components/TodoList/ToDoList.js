@@ -81,14 +81,17 @@ const ToDoList = ({
               <span
                 onChange={(e) => editTask(e.target.value)}
                 onClick={() => editTask(items.id, items.title)}
-                className="finished todo__li--hover"
+                className="finished todo__li--hover todo__edit-icon"
               >
                 <Tooltip title="Редагувати">
                   {<EditIcon color="primary" sx={{ cursor: 'pointer' }} />}
                 </Tooltip>
               </span>
               {edit === items.id ? (
-                <span onClick={() => saveTask(items.id, items.title)}>
+                <span
+                  className=""
+                  onClick={() => saveTask(items.id, items.title)}
+                >
                   <Tooltip title="Зберегти">
                     <SaveAsIcon
                       sx={{

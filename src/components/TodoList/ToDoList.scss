@@ -33,6 +33,9 @@
 .finished .todo__li--hover {
   background-color: rgba(255, 4, 4, 0.2);
 }
+.finished .todo__li--hover:hover {
+  background-color: rgba(255, 4, 4, 0.2);
+}
 
 .todo__li.finished {
   display: flex;
@@ -47,6 +50,23 @@
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.425);
   margin-bottom: 20px;
   transition: 0.5s all;
+  &:hover {
+    background-color: rgba(255, 4, 4, 0.2);
+    transform: translateY(-0px);
+  }
+}
+
+.todo__li.finished .todo__li--hover:hover {
+  transition: 0.5s all;
+  transform: translateY(-0px);
+  svg path {
+    fill: rgb(170, 24, 53);
+    transition: 0.5s all;
+  }
+}
+
+.todo__li.finished .todo__edit-icon {
+  display: none !important;
 }
 
 @media (max-width: 576px) {
