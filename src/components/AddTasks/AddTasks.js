@@ -55,7 +55,8 @@ const AddTasks = ({
           gutterBottom
           sx={{
             flexGrow: 1,
-            display: { md: 'none', sm: 'block' },
+            display: { xs: 'block', sm: 'none' },
+            marginBottom: 3,
           }}
         >
           Reactive Todo
