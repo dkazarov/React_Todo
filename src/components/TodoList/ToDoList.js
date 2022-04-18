@@ -60,11 +60,7 @@ const ToDoList = ({
     );
   };
 
-  // Filtered data
-  const filteredTasks = tasks.filter((item) =>
-    item.title.toLowerCase().includes(searchValue.toLowerCase())
-  );
-
+  // Render tabs
   const tabs = (status) => {
     if (status === 'all') {
       setFilteredRender(tasks);

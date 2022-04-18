@@ -50,6 +50,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header({ setSearchValue }) {
+
   return (
     <Box
       sx={{

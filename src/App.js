@@ -3,7 +3,7 @@ import Container from '@mui/material/Container';
 import Header from './components/Header/Header';
 import AddTasks from './components/AddTasks/AddTasks';
 import ToDoList from './components/TodoList/ToDoList';
-import { SnackbarProvider, useSnackbar } from 'notistack';
+import { useSnackbar } from 'notistack';
 
 import './App.scss';
 
@@ -23,11 +23,22 @@ function App() {
   useEffect(() => {
     localStorage.setItem(`title`, JSON.stringify([...tasks]));
     setFilteredRender(tasks);
-  }, [tasks]);
+    setFilteredRender(search(searchValue, tasks));
+  }, [tasks, searchValue]);
+
+  // Filtered data
+  const search = (searchText, tasks) => {
+    if (!searchText) {
+      return tasks;
+    }
+    return tasks.filter((item) =>
+      item.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  };
 
   return (
     <>
-      <Header setSearchValue={setSearchValue} />
+      <Header setSearchValue={setSearchValue} search={search} />
       <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
         <AddTasks
           filteredRender={filteredRender}
