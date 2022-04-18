@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import { nanoid } from 'nanoid';
 import Button from '@mui/material/Button';
-
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 import './AddTasks.scss';
 
@@ -47,28 +48,42 @@ const AddTasks = ({
 
   return (
     <div ref={inputRef} className="add__task-inner">
-      {!error ? (
-        <TextField
-          label="Додати нове завдання"
-          variant="standard"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          sx={{ width: '80%' }}
-        />
-      ) : (
-        <TextField
-          error
-          label="Ви нічого не додали"
-          variant="standard"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          sx={{ width: '80%' }}
-        />
-      )}
+      <Box sx={{ width: '100%', maxWidth: 500 }}>
+        <Typography
+          variant="h4"
+          component="div"
+          gutterBottom
+          sx={{
+            flexGrow: 1,
+            display: { md: 'none', sm: 'block' },
+          }}
+        >
+          Reactive Todo
+        </Typography>
 
-      <Button variant="contained" onClick={addTodo('success')}>
-        Додати
-      </Button>
+        {!error ? (
+          <TextField
+            label="Додати нове завдання"
+            variant="standard"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            sx={{ width: '80%', marginBottom: 2 }}
+          />
+        ) : (
+          <TextField
+            error
+            label="Ви нічого не додали"
+            variant="standard"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            sx={{ width: '80%', marginBottom: 2 }}
+          />
+        )}
+
+        <Button variant="contained" onClick={addTodo('success')}>
+          Додати
+        </Button>
+      </Box>
     </div>
   );
 };
