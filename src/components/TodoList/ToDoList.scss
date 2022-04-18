@@ -10,18 +10,15 @@
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.425);
   margin-bottom: 20px;
   transition: 0.5s all;
-}
-
-.todo__text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: pre;
+  overflow: auto;
 }
 
 .todo__icons-inner {
   display: flex;
+  text-align: center;
   justify-content: flex-end;
   align-items: center;
+  background-color: #fff;
 }
 
 .todo__icons-inner span {
@@ -51,8 +48,16 @@
 @media (max-width: 576px) {
   .todo__li {
     font-size: 16px;
+    padding: 3px;
+  }
+  .todo__li--hover {
+    padding: 3px !important;
   }
   .todo__li.finished {
     font-size: 16px;
+    padding: 3px !important;
+  }
+  .todo__icons-inner {
+    background-color: rgba(255, 4, 4, 0);
   }
 }
