@@ -38,6 +38,7 @@ function App() {
           tasks={tasks}
           setValue={setValue}
           value={value}
+          enqueueSnackbar={enqueueSnackbar}
         />
         <ToDoList
           filteredRender={filteredRender}
