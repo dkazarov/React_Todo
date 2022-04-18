@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import Checkbox from '@mui/material/Checkbox';
 import EditIcon from '@mui/icons-material/Edit';
@@ -18,7 +18,14 @@ const ToDoList = ({
   value,
   edit,
   searchValue,
+  filteredRender,
+  setFilteredRender,
 }) => {
+  useEffect(() => {
+
+    setEdit(false);
+  }, [tasks]);
+
   //Delete task from state tasks[]
   const deleteTask = (id) => {
     let newList = [...tasks].filter((item) => item.id !== id);
@@ -75,7 +82,7 @@ const ToDoList = ({
         <Button>Завершені</Button>
       </ButtonGroup>
       {tasks.length !== 0 ? (
-        filteredTasks.map((items) => (
+        filteredRender.map((items) => (
           <li
             key={nanoid(3)}
             className={!items.isCompleted ? 'todo__li' : 'todo__li finished'}

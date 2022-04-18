@@ -15,11 +15,14 @@ function App() {
   const [edit, setEdit] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [error, setError] = useState(false);
+  const [filteredRender, setFilteredRender] = useState(tasks);
+
   const { enqueueSnackbar } = useSnackbar();
 
   //add item on load to local Storage when tasks changes
   useEffect(() => {
     localStorage.setItem(`title`, JSON.stringify([...tasks]));
+    setFilteredRender(tasks);
   }, [tasks]);
 
   return (
@@ -27,7 +30,8 @@ function App() {
       <Header setSearchValue={setSearchValue} />
       <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
         <AddTasks
-          enqueueSnackbar={enqueueSnackbar}
+          filteredRender={filteredRender}
+          setFilteredRender={setFilteredRender}
           error={error}
           setError={setError}
           setTasks={setTasks}
@@ -36,6 +40,7 @@ function App() {
           value={value}
         />
         <ToDoList
+          filteredRender={filteredRender}
           searchValue={searchValue}
           value={value}
           tasks={tasks}
