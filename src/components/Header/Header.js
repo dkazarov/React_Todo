@@ -61,7 +61,6 @@ export default function Header({ setSearchValue }) {
             sx={{
               flexGrow: 1,
               display: { xs: 'none', sm: 'block' },
-              textAlign: 'center',
             }}
           >
             Reactive Todo

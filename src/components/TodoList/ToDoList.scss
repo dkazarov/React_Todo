@@ -1,16 +1,25 @@
+// .todo__inner {
+//   display: flex;
+// }
+
 .todo__li {
   display: flex;
+  position: relative;
   justify-content: space-between;
   padding: 5px;
   align-items: center;
-  background-color: #fff;
   border-radius: 10px;
-  font-size: 28px;
+  font-size: 24px;
   cursor: pointer;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.425);
   margin-bottom: 20px;
   transition: 0.5s all;
-  border-radius: 10px;
+}
+
+.todo__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre;
 }
 
 .todo__icons-inner {
@@ -36,7 +45,7 @@
   background-color: rgba(255, 4, 4, 0.2);
   text-decoration: line-through;
   border-radius: 10px;
-  font-size: 28px;
+  font-size: 24px;
   cursor: pointer;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.425);
   margin-bottom: 20px;
