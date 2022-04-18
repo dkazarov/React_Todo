@@ -41,6 +41,7 @@ function App() {
         />
         <ToDoList
           filteredRender={filteredRender}
+          setFilteredRender={setFilteredRender}
           searchValue={searchValue}
           value={value}
           tasks={tasks}

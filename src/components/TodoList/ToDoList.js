@@ -21,11 +21,6 @@ const ToDoList = ({
   filteredRender,
   setFilteredRender,
 }) => {
-  useEffect(() => {
-
-    setEdit(false);
-  }, [tasks]);
-
   //Delete task from state tasks[]
   const deleteTask = (id) => {
     let newList = [...tasks].filter((item) => item.id !== id);
@@ -70,6 +65,15 @@ const ToDoList = ({
     item.title.toLowerCase().includes(searchValue.toLowerCase())
   );
 
+  const tabs = (status) => {
+    if (status === 'all') {
+      setFilteredRender(tasks);
+    } else {
+      let newTodo = [...tasks].filter((items) => items.isCompleted === status);
+      setFilteredRender(newTodo);
+    }
+  };
+
   return (
     <ul className="todo__inner">
       <ButtonGroup
@@ -77,9 +81,9 @@ const ToDoList = ({
         aria-label="small button group"
         sx={{ marginBottom: '7%' }}
       >
-        <Button>Всі</Button>
-        <Button>Відкриті</Button>
-        <Button>Завершені</Button>
+        <Button onClick={() => tabs('all')}>Всі</Button>
+        <Button onClick={() => tabs(false)}>Відкриті</Button>
+        <Button onClick={() => tabs(true)}>Завершені</Button>
       </ButtonGroup>
       {tasks.length !== 0 ? (
         filteredRender.map((items) => (
