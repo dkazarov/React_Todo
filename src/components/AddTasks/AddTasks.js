@@ -27,6 +27,7 @@ const AddTasks = ({
     });
     setError((error = false));
   }, [value]);
+  
   // Add items to tasks []
   const addTodo = (variant) => () => {
     if (value) {
