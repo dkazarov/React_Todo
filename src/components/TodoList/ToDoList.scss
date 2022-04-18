@@ -1,7 +1,3 @@
-// .todo__inner {
-//   display: flex;
-// }
-
 .todo__li {
   display: flex;
   position: relative;
@@ -50,4 +46,13 @@
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.425);
   margin-bottom: 20px;
   transition: 0.5s all;
+}
+
+@media (max-width: 576px) {
+  .todo__li {
+    font-size: 16px;
+  }
+  .todo__li.finished {
+    font-size: 16px;
+  }
 }
