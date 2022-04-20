@@ -1,6 +1,8 @@
+![prewiew app](./preview.jpg);
+
 # Reactive Todo
 
-Technologies: React 18+
+Technologies: React v16.8
 Hooks: UseState, UseEffect, USeRef
 
 Libraries: [nanoid](https://www.npmjs.com/package/nanoid)
