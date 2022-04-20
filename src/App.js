@@ -61,6 +61,7 @@ function App() {
           edit={edit}
           setEdit={setEdit}
           setValue={setValue}
+          enqueueSnackbar={enqueueSnackbar}
         />
       </Container>
     </>

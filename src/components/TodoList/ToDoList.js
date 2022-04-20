@@ -17,14 +17,15 @@ const ToDoList = ({
   setValue,
   value,
   edit,
-  searchValue,
   filteredRender,
   setFilteredRender,
+  enqueueSnackbar,
 }) => {
   //Delete task from state tasks[]
-  const deleteTask = (id) => {
+  const deleteTask = (id, variant) => {
     let newList = [...tasks].filter((item) => item.id !== id);
     setTasks(newList);
+    enqueueSnackbar('Завдання видалено', { variant });
   };
 
   // Edit item from tasks []
@@ -35,7 +36,7 @@ const ToDoList = ({
   };
 
   //Save item after edit to tasks []
-  const saveTask = (id) => {
+  const saveTask = (id, title, variant) => {
     let newTodo = [...tasks].filter((item) => {
       if (item.id === id) {
         item.title = value;
@@ -44,6 +45,7 @@ const ToDoList = ({
     });
     setTasks(newTodo);
     setEdit(false);
+    enqueueSnackbar('Завдання зміненно', { variant });
   };
 
   // Change status checkbox
@@ -107,7 +109,7 @@ const ToDoList = ({
               {edit === items.id ? (
                 <span
                   className=""
-                  onClick={() => saveTask(items.id, items.title)}
+                  onClick={() => saveTask(items.id, items.title, 'info')}
                 >
                   <Tooltip title="Зберегти">
                     <SaveAsIcon
@@ -121,7 +123,7 @@ const ToDoList = ({
                 </span>
               ) : (
                 <span
-                  onClick={() => deleteTask(items.id)}
+                  onClick={() => deleteTask(items.id, 'error')}
                   className="todo__li--hover"
                 >
                   <Tooltip title="Видалити">
