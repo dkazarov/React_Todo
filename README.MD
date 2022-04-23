@@ -1,6 +1,6 @@
-![prewiew app](./preview.jpg);
+![prewiew app](./preview.jpg)
 
-# Reactive Todo
+# [Reactive Todo](https://dkazarov.github.io/React_Todo/)
 
 Technologies: React v16.8
 Hooks: UseState, UseEffect, USeRef

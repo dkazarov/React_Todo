@@ -16,7 +16,7 @@ const AddTasks = ({
   setError,
   enqueueSnackbar,
 }) => {
-  const inputRef = useRef();
+  const inputRef = useRef(null);
 
   // Tracking state error <TextField> components & click beyond the borders input
   useEffect(() => {
@@ -27,7 +27,7 @@ const AddTasks = ({
     });
     setError((error = false));
   }, [value]);
-  
+
   // Add items to tasks []
   const addTodo = (variant) => () => {
     if (value) {
@@ -44,6 +44,12 @@ const AddTasks = ({
       enqueueSnackbar('Завдання додано', { variant });
     } else {
       setError((error = true));
+    }
+  };
+
+  const AddTaskToKeyEnter = (e) => {
+    if (value && e.key === 'Enter') {
+      setTasks(addTodo('success'));
     }
   };
 
@@ -70,6 +76,8 @@ const AddTasks = ({
             value={value}
             onChange={(e) => setValue(e.target.value)}
             sx={{ width: '80%', marginBottom: '7%' }}
+            onKeyDown={AddTaskToKeyEnter}
+            ref={inputRef}
           />
         ) : (
           <TextField
@@ -79,6 +87,8 @@ const AddTasks = ({
             value={value}
             onChange={(e) => setValue(e.target.value)}
             sx={{ width: '80%', marginBottom: '7%' }}
+            ref={inputRef}
+            onKeyDown={AddTaskToKeyEnter}
           />
         )}
 
