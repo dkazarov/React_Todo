@@ -30,7 +30,7 @@ const AddTasks = ({
 
   // Add items to tasks []
   const addTodo = (variant) => () => {
-    if (value) {
+    if (value && value.length <= 50) {
       setTasks([
         ...tasks,
         {
@@ -82,7 +82,12 @@ const AddTasks = ({
         ) : (
           <TextField
             error
-            label="Ви нічого не додали"
+            label={
+              !value
+                ? 'Ви нічого не додали'
+                : 'Максимальна кількість символів: 50'
+            }
+            //
             variant="standard"
             value={value}
             onChange={(e) => setValue(e.target.value)}
