@@ -4,6 +4,14 @@ import Header from './components/Header/Header';
 import AddTasks from './components/AddTasks/AddTasks';
 import ToDoList from './components/TodoList/ToDoList';
 import { useSnackbar } from 'notistack';
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  QuerySnapshot,
+} from 'firebase/firestore';
+import { db } from './firebase.config';
 
 import './App.scss';
 
@@ -24,6 +32,16 @@ function App() {
     localStorage.setItem(`title`, JSON.stringify([...tasks]));
     setFilteredRender(tasks);
     setFilteredRender(search(searchValue, tasks));
+
+    const q = query(collection(db, 'todos'));
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      let todosArray = [];
+      querySnapshot.forEach((doc) => {
+        todosArray.push({ ...doc.data(), id: doc.id });
+      });
+      setTasks(todosArray);
+    });
+    return () => unsub();
   }, [tasks, searchValue]);
 
   // Filtered data
@@ -39,7 +57,7 @@ function App() {
   return (
     <>
       <Header setSearchValue={setSearchValue} search={search} />
-      <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
+      <Container maxWidth='sm' sx={{ textAlign: 'center' }}>
         <AddTasks
           filteredRender={filteredRender}
           setFilteredRender={setFilteredRender}

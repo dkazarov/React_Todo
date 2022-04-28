@@ -4,6 +4,8 @@ import { nanoid } from 'nanoid';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../../firebase.config';
 
 import './AddTasks.scss';
 
@@ -29,19 +31,24 @@ const AddTasks = ({
   }, [value]);
 
   // Add items to tasks []
-  const addTodo = (variant) => () => {
+  const addTodo = async (variant) => {
     if (value && value.length <= 50) {
-      setTasks([
-        ...tasks,
-        {
-          id: nanoid(2),
-          title: value,
-          isCompleted: false,
-        },
-      ]);
+      await addDoc(collection(db, 'todos'), {
+        id: nanoid(2),
+        title: value,
+        isCompleted: false,
+      });
+      //   setTasks([
+      //     ...tasks,
+      //     {
+      //       id: nanoid(2),
+      //       title: value,
+      //       isCompleted: false,
+      //     },
+      //   ]);
       setError((error = false));
       setValue('');
-      enqueueSnackbar('Завдання додано', { variant });
+      // enqueueSnackbar('Завдання додано', { variant });
     } else {
       setError((error = true));
     }
@@ -54,11 +61,11 @@ const AddTasks = ({
   };
 
   return (
-    <div ref={inputRef} className="add__task-inner">
+    <div ref={inputRef} className='add__task-inner'>
       <Box sx={{ width: '100%' }}>
         <Typography
-          variant="h4"
-          component="div"
+          variant='h4'
+          component='div'
           gutterBottom
           sx={{
             flexGrow: 1,
@@ -71,8 +78,8 @@ const AddTasks = ({
 
         {!error ? (
           <TextField
-            label="Додати нове завдання"
-            variant="standard"
+            label='Додати нове завдання'
+            variant='standard'
             value={value}
             onChange={(e) => setValue(e.target.value)}
             sx={{ width: '80%', marginBottom: '7%' }}
@@ -88,7 +95,7 @@ const AddTasks = ({
                 : 'Максимальна кількість символів: 50'
             }
             //
-            variant="standard"
+            variant='standard'
             value={value}
             onChange={(e) => setValue(e.target.value)}
             sx={{ width: '80%', marginBottom: '7%' }}
@@ -97,7 +104,7 @@ const AddTasks = ({
           />
         )}
 
-        <Button variant="contained" onClick={addTodo('success')}>
+        <Button variant='contained' onClick={() => addTodo('success')}>
           Додати
         </Button>
       </Box>
