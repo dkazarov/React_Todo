@@ -4,20 +4,15 @@ import Header from './components/Header/Header';
 import AddTasks from './components/AddTasks/AddTasks';
 import ToDoList from './components/TodoList/ToDoList';
 import { useSnackbar } from 'notistack';
-import {
-  collection,
-  getDocs,
-  onSnapshot,
-  query,
-  QuerySnapshot,
-} from 'firebase/firestore';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { db } from './firebase.config';
 
 import './App.scss';
 
 function App() {
   const [tasks, setTasks] = useState(
-    JSON.parse(localStorage.getItem('title')) || []
+    []
+    // JSON.parse(localStorage.getItem('title')) || []
   );
   const [value, setValue] = useState('');
   const [edit, setEdit] = useState(false);
@@ -29,20 +24,17 @@ function App() {
 
   //add item on load to local Storage when tasks changes
   useEffect(() => {
-    localStorage.setItem(`title`, JSON.stringify([...tasks]));
-    setFilteredRender(tasks);
-    setFilteredRender(search(searchValue, tasks));
-
     const q = query(collection(db, 'todos'));
-    const unsub = onSnapshot(q, (querySnapshot) => {
-      let todosArray = [];
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const todos = [];
       querySnapshot.forEach((doc) => {
-        todosArray.push({ ...doc.data(), id: doc.id });
+        todos.push(doc.data());
       });
-      setTasks(todosArray);
+      setTasks(todos);
+      setFilteredRender(todos);
+      console.log(todos);
     });
-    return () => unsub();
-  }, [tasks, searchValue]);
+  }, []);
 
   // Filtered data
   const search = (searchText, tasks) => {
