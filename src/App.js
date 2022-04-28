@@ -28,7 +28,7 @@ function App() {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const todos = [];
       querySnapshot.forEach((doc) => {
-        todos.push(doc.data());
+        todos.push({...doc.data(), id: doc.id});
       });
       setTasks(todos);
       setFilteredRender(todos);

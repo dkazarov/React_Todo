@@ -46,11 +46,11 @@ const AddTasks = ({
       //       isCompleted: false,
       //     },
       //   ]);
-      setError((error = false));
-      setValue('');
-      // enqueueSnackbar('Завдання додано', { variant });
+      await setError((error = false));
+      await setValue('');
+      await enqueueSnackbar('Завдання додано', { variant });
     } else {
-      setError((error = true));
+      await setError((error = true));
     }
   };
 

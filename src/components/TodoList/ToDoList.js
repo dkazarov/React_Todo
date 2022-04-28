@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { nanoid } from 'nanoid';
 import Checkbox from '@mui/material/Checkbox';
 import EditIcon from '@mui/icons-material/Edit';
@@ -7,6 +7,8 @@ import SaveAsIcon from '@mui/icons-material/SaveAs';
 import Tooltip from '@mui/material/Tooltip';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
+import { doc, deleteDoc } from 'firebase/firestore';
+import { db } from '../../firebase.config';
 
 import './ToDoList.scss';
 
@@ -22,10 +24,11 @@ const ToDoList = ({
   enqueueSnackbar,
 }) => {
   //Delete task from state tasks[]
-  const deleteTask = (id, variant) => {
-    let newList = [...tasks].filter((item) => item.id !== id);
-    setTasks(newList);
-    enqueueSnackbar('Завдання видалено', { variant });
+  const deleteTask = async (id, variant) => {
+    await deleteDoc(doc(db, 'todos', id));
+    // let newList = [...tasks].filter((item) => item.id !== id);
+    // setTasks(newList);
+    await enqueueSnackbar('Завдання видалено', { variant });
   };
 
   // Edit item from tasks []
@@ -73,10 +76,10 @@ const ToDoList = ({
   };
 
   return (
-    <ul className="todo__inner">
+    <ul className='todo__inner'>
       <ButtonGroup
-        size="small"
-        aria-label="small button group"
+        size='small'
+        aria-label='small button group'
         sx={{ marginBottom: '7%' }}
       >
         <Button onClick={() => tabs('all')}>Всі</Button>
@@ -95,23 +98,23 @@ const ToDoList = ({
                 onChange={() => changeStatusTask(items.id)}
               />
             </div>
-            <div className="todo__text">{items.title}</div>
-            <div className="todo__icons-inner">
+            <div className='todo__text'>{items.title}</div>
+            <div className='todo__icons-inner'>
               <span
                 onChange={(e) => editTask(e.target.value)}
                 onClick={() => editTask(items.id, items.title)}
-                className="finished todo__li--hover todo__edit-icon"
+                className='finished todo__li--hover todo__edit-icon'
               >
-                <Tooltip title="Редагувати">
-                  {<EditIcon color="primary" sx={{ cursor: 'pointer' }} />}
+                <Tooltip title='Редагувати'>
+                  {<EditIcon color='primary' sx={{ cursor: 'pointer' }} />}
                 </Tooltip>
               </span>
               {edit === items.id ? (
                 <span
-                  className=""
+                  className=''
                   onClick={() => saveTask(items.id, items.title, 'info')}
                 >
-                  <Tooltip title="Зберегти">
+                  <Tooltip title='Зберегти'>
                     <SaveAsIcon
                       sx={{
                         color: 'green',
@@ -124,9 +127,9 @@ const ToDoList = ({
               ) : (
                 <span
                   onClick={() => deleteTask(items.id, 'error')}
-                  className="todo__li--hover"
+                  className='todo__li--hover'
                 >
-                  <Tooltip title="Видалити">
+                  <Tooltip title='Видалити'>
                     <DeleteIcon
                       sx={{
                         color: 'crimson',
