@@ -10,7 +10,6 @@ import { db } from '../../firebase.config';
 import './AddTasks.scss';
 
 const AddTasks = ({
-  tasks,
   setTasks,
   value,
   setValue,
@@ -38,17 +37,9 @@ const AddTasks = ({
         title: value,
         isCompleted: false,
       });
-      //   setTasks([
-      //     ...tasks,
-      //     {
-      //       id: nanoid(2),
-      //       title: value,
-      //       isCompleted: false,
-      //     },
-      //   ]);
-      await setError((error = false));
-      await setValue('');
-      await enqueueSnackbar('Завдання додано', { variant });
+      setError((error = false));
+      setValue('');
+      enqueueSnackbar('Завдання додано', { variant });
     } else {
       await setError((error = true));
     }

@@ -19,6 +19,7 @@ function App() {
   const [searchValue, setSearchValue] = useState('');
   const [error, setError] = useState(false);
   const [filteredRender, setFilteredRender] = useState(tasks);
+  const [done, setDone] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -28,11 +29,10 @@ function App() {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const todos = [];
       querySnapshot.forEach((doc) => {
-        todos.push({...doc.data(), id: doc.id});
+        todos.push({ ...doc.data(), id: doc.id });
       });
       setTasks(todos);
       setFilteredRender(todos);
-      console.log(todos);
     });
   }, []);
 
@@ -72,6 +72,8 @@ function App() {
           setEdit={setEdit}
           setValue={setValue}
           enqueueSnackbar={enqueueSnackbar}
+          done={done}
+          setDone={setDone}
         />
       </Container>
     </>

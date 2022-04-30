@@ -7,7 +7,7 @@ import SaveAsIcon from '@mui/icons-material/SaveAs';
 import Tooltip from '@mui/material/Tooltip';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
-import { doc, deleteDoc } from 'firebase/firestore';
+import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase.config';
 
 import './ToDoList.scss';
@@ -22,6 +22,8 @@ const ToDoList = ({
   filteredRender,
   setFilteredRender,
   enqueueSnackbar,
+  done,
+  setDone,
 }) => {
   //Delete task from state tasks[]
   const deleteTask = async (id, variant) => {
@@ -52,17 +54,12 @@ const ToDoList = ({
   };
 
   // Change status checkbox
-  const changeStatusTask = (id) => {
-    setTasks(
-      tasks.map((todo) => {
-        if (todo.id !== id) return todo;
+  const changeStatusTask = async (items) => {
+    const washingtonRef = doc(db, 'todos', items.id);
 
-        return {
-          ...todo,
-          isCompleted: !todo.isCompleted,
-        };
-      })
-    );
+    await updateDoc(washingtonRef, {
+      isCompleted: !items.isCompleted,
+    });
   };
 
   // Render tabs
@@ -95,7 +92,7 @@ const ToDoList = ({
             <div>
               <Checkbox
                 checked={items.isCompleted}
-                onChange={() => changeStatusTask(items.id)}
+                onChange={() => changeStatusTask(items)}
               />
             </div>
             <div className='todo__text'>{items.title}</div>
