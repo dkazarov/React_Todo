@@ -31,7 +31,7 @@ const AddTasks = ({
 
   // Add items to tasks []
   const addTodo = async (variant) => {
-    if (value && value.length <= 50) {
+    if (value && value.length <= 75) {
       await addDoc(collection(db, 'todos'), {
         id: nanoid(3),
         title: value,
@@ -77,6 +77,7 @@ const AddTasks = ({
             sx={{ width: '80%', marginBottom: '7%' }}
             onKeyDown={AddTaskToKeyEnter}
             ref={inputRef}
+            autoFocus
           />
         ) : (
           <TextField

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { nanoid } from 'nanoid';
 import Checkbox from '@mui/material/Checkbox';
 import EditIcon from '@mui/icons-material/Edit';
@@ -7,21 +7,23 @@ import SaveAsIcon from '@mui/icons-material/SaveAs';
 import Tooltip from '@mui/material/Tooltip';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
-import { doc, deleteDoc, updateDoc, collection } from 'firebase/firestore';
+import TextField from '@mui/material/TextField';
+import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase.config';
 
 import './ToDoList.scss';
 
 const ToDoList = ({
   tasks,
-  setTasks,
   setEdit,
   setValue,
-  value,
   edit,
   filteredRender,
   setFilteredRender,
   enqueueSnackbar,
+  setEditTitle,
+  editTitle,
+  inputRef,
 }) => {
   //Delete task from state tasks[]
   const deleteTask = async (id, variant) => {
@@ -33,31 +35,19 @@ const ToDoList = ({
 
   // Edit item from tasks []
   const editTask = (id, title) => {
-    // setValue(id);
-    setValue(title);
+    setEditTitle(title);
     setEdit(id);
   };
 
   //Save item after edit to tasks []
-  const saveTask = async (id, title, variant) => {
-    // Add a new document with a generated id
-    const washingtonRef = doc(db, 'todos', id);
-
-    // Set the "capital" field of the city 'DC'
-    await updateDoc(washingtonRef, {
-      title: value,
+  const saveTask = async (id, title, variant, e) => {
+    const inputEditRef = doc(db, 'todos', id);
+    await updateDoc(inputEditRef, {
+      title: editTitle,
     });
     setEdit(false);
-
-    // let newTodo = [...tasks].filter((item) => {
-    //   if (item.id === id) {
-    //     item.title = value;
-    //   }
-    //   return item;
-    // });
-    // setTasks(newTodo);
-    // setEdit(false);
-    // enqueueSnackbar('Завдання зміненно', { variant });
+    setValue('');
+    enqueueSnackbar('Завдання зміненно', { variant });
   };
 
   // Change status checkbox
@@ -102,7 +92,24 @@ const ToDoList = ({
                 onChange={() => changeStatusTask(items)}
               />
             </div>
-            <div className='todo__text'>{items.title}</div>
+            <div className='todo__text'>
+              {edit === items.id ? (
+                <TextField
+                  id='standard-basic'
+                  label='Змінити на:'
+                  variant='standard'
+                  color='warning'
+                  value={editTitle}
+                  size='small'
+                  onChange={(e) => setEditTitle(e.target.value)}
+                  autoFocus
+                  sx={{ textAlign: 'center', width: '100%' }}
+                  ref={inputRef}
+                />
+              ) : (
+                items.title
+              )}
+            </div>
             <div className='todo__icons-inner'>
               <span
                 onChange={(e) => editTask(e.target.value)}

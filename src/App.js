@@ -19,11 +19,10 @@ function App() {
   const [searchValue, setSearchValue] = useState('');
   const [error, setError] = useState(false);
   const [filteredRender, setFilteredRender] = useState(tasks);
-  const [done, setDone] = useState(false);
+  const [editTitle, setEditTitle] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
 
-  //add item on load to local Storage when tasks changes
   useEffect(() => {
     const q = query(collection(db, 'todos'), orderBy('createdAt'));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -65,16 +64,13 @@ function App() {
         <ToDoList
           filteredRender={filteredRender}
           setFilteredRender={setFilteredRender}
-          searchValue={searchValue}
-          value={value}
           tasks={tasks}
-          setTasks={setTasks}
           edit={edit}
           setEdit={setEdit}
           setValue={setValue}
           enqueueSnackbar={enqueueSnackbar}
-          done={done}
-          setDone={setDone}
+          setEditTitle={setEditTitle}
+          editTitle={editTitle}
         />
       </Container>
     </>
