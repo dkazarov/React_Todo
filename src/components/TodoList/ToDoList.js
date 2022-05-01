@@ -22,8 +22,6 @@ const ToDoList = ({
   filteredRender,
   setFilteredRender,
   enqueueSnackbar,
-  done,
-  setDone,
 }) => {
   //Delete task from state tasks[]
   const deleteTask = async (id, variant) => {

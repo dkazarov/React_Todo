@@ -4,7 +4,7 @@ import Header from './components/Header/Header';
 import AddTasks from './components/AddTasks/AddTasks';
 import ToDoList from './components/TodoList/ToDoList';
 import { useSnackbar } from 'notistack';
-import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 import { db } from './firebase.config';
 
 import './App.scss';
@@ -25,7 +25,7 @@ function App() {
 
   //add item on load to local Storage when tasks changes
   useEffect(() => {
-    const q = query(collection(db, 'todos'));
+    const q = query(collection(db, 'todos'), orderBy('createdAt'));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const todos = [];
       querySnapshot.forEach((doc) => {
@@ -33,6 +33,7 @@ function App() {
       });
       setTasks(todos);
       setFilteredRender(todos);
+      console.log(todos);
     });
   }, []);
 

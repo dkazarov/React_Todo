@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../firebase.config';
 
 import './AddTasks.scss';
@@ -33,9 +33,10 @@ const AddTasks = ({
   const addTodo = async (variant) => {
     if (value && value.length <= 50) {
       await addDoc(collection(db, 'todos'), {
-        id: nanoid(2),
+        id: nanoid(3),
         title: value,
         isCompleted: false,
+        createdAt: serverTimestamp(),
       });
       setError((error = false));
       setValue('');
