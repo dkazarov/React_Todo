@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { nanoid } from 'nanoid';
 import Checkbox from '@mui/material/Checkbox';
 import EditIcon from '@mui/icons-material/Edit';
@@ -15,21 +15,26 @@ import './ToDoList.scss';
 
 const ToDoList = ({
   tasks,
+  edit,
   setEdit,
   setValue,
-  edit,
   filteredRender,
   setFilteredRender,
   enqueueSnackbar,
   setEditTitle,
   editTitle,
-  inputRef,
 }) => {
+  const inputEditRef = useRef(null);
+  useEffect(() => {
+    window.addEventListener('click', (e) => {
+      if (!e.path.includes(inputEditRef.current)) {
+        setEdit(false);
+      }
+    });
+  }, []);
   //Delete task from state tasks[]
   const deleteTask = async (id, variant) => {
     await deleteDoc(doc(db, 'todos', id));
-    // let newList = [...tasks].filter((item) => item.id !== id);
-    // setTasks(newList);
     await enqueueSnackbar('Завдання видалено', { variant });
   };
 
@@ -40,7 +45,7 @@ const ToDoList = ({
   };
 
   //Save item after edit to tasks []
-  const saveTask = async (id, title, variant, e) => {
+  const saveTask = async (id, variant) => {
     const inputEditRef = doc(db, 'todos', id);
     await updateDoc(inputEditRef, {
       title: editTitle,
@@ -70,7 +75,7 @@ const ToDoList = ({
   };
 
   return (
-    <ul className='todo__inner'>
+    <ul className='todo__inner' ref={inputEditRef}>
       <ButtonGroup
         size='small'
         aria-label='small button group'
@@ -104,7 +109,6 @@ const ToDoList = ({
                   onChange={(e) => setEditTitle(e.target.value)}
                   autoFocus
                   sx={{ textAlign: 'center', width: '100%' }}
-                  ref={inputRef}
                 />
               ) : (
                 items.title
