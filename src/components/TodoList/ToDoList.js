@@ -116,9 +116,13 @@ const ToDoList = ({
                 onClick={() => editTask(items.id, items.title)}
                 className='finished todo__li--hover todo__edit-icon'
               >
-                <Tooltip title='Редагувати'>
-                  {<EditIcon color='primary' sx={{ cursor: 'pointer' }} />}
-                </Tooltip>
+                {!edit ? (
+                  <Tooltip title='Редагувати'>
+                    <EditIcon color='primary' sx={{ cursor: 'pointer' }} />
+                  </Tooltip>
+                ) : (
+                  false
+                )}
               </span>
               {edit === items.id ? (
                 <span
