@@ -7,7 +7,7 @@ import SaveAsIcon from '@mui/icons-material/SaveAs';
 import Tooltip from '@mui/material/Tooltip';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
-import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { doc, deleteDoc, updateDoc, collection } from 'firebase/firestore';
 import { db } from '../../firebase.config';
 
 import './ToDoList.scss';
@@ -33,22 +33,31 @@ const ToDoList = ({
 
   // Edit item from tasks []
   const editTask = (id, title) => {
-    setValue(id);
+    // setValue(id);
     setValue(title);
     setEdit(id);
   };
 
   //Save item after edit to tasks []
-  const saveTask = (id, title, variant) => {
-    let newTodo = [...tasks].filter((item) => {
-      if (item.id === id) {
-        item.title = value;
-      }
-      return item;
+  const saveTask = async (id, title, variant) => {
+    // Add a new document with a generated id
+    const washingtonRef = doc(db, 'todos', id);
+
+    // Set the "capital" field of the city 'DC'
+    await updateDoc(washingtonRef, {
+      title: value,
     });
-    setTasks(newTodo);
     setEdit(false);
-    enqueueSnackbar('Завдання зміненно', { variant });
+
+    // let newTodo = [...tasks].filter((item) => {
+    //   if (item.id === id) {
+    //     item.title = value;
+    //   }
+    //   return item;
+    // });
+    // setTasks(newTodo);
+    // setEdit(false);
+    // enqueueSnackbar('Завдання зміненно', { variant });
   };
 
   // Change status checkbox
