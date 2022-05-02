@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Container from '@mui/material/Container';
 import Header from './components/Header/Header';
 import AddTasks from './components/AddTasks/AddTasks';
@@ -20,8 +20,8 @@ function App() {
   const [error, setError] = useState(false);
   const [filteredRender, setFilteredRender] = useState(tasks);
   const [editTitle, setEditTitle] = useState(false);
-
   const { enqueueSnackbar } = useSnackbar();
+  const inputRef = useRef(null);
 
   useEffect(() => {
     const q = query(collection(db, 'todos'), orderBy('createdAt'));
@@ -32,7 +32,13 @@ function App() {
       });
       setTasks(todos);
       setFilteredRender(todos);
-      console.log(todos);
+      ///
+      window.addEventListener('click', (e) => {
+        if (!e.path.includes(inputRef.current)) {
+          setError(false);
+        }
+      });
+      setError(false);
     });
   }, []);
 
@@ -60,6 +66,7 @@ function App() {
           setValue={setValue}
           value={value}
           enqueueSnackbar={enqueueSnackbar}
+          inputRef={inputRef}
         />
         <ToDoList
           filteredRender={filteredRender}

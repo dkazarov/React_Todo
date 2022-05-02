@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import TextField from '@mui/material/TextField';
 import { nanoid } from 'nanoid';
 import Button from '@mui/material/Button';
@@ -16,19 +16,8 @@ const AddTasks = ({
   error,
   setError,
   enqueueSnackbar,
+  inputRef,
 }) => {
-  const inputRef = useRef(null);
-
-  // Tracking state error <TextField> components & click beyond the borders input
-  useEffect(() => {
-    window.addEventListener('click', (e) => {
-      if (!e.path.includes(inputRef.current)) {
-        setError((value = false));
-      }
-    });
-    setError((error = false));
-  }, [value]);
-
   // Add items to tasks []
   const addTodo = async (variant) => {
     if (value && value.length <= 75) {
@@ -87,7 +76,6 @@ const AddTasks = ({
                 ? 'Ви нічого не додали'
                 : 'Максимальна кількість символів: 50'
             }
-            //
             variant='standard'
             value={value}
             onChange={(e) => setValue(e.target.value)}
