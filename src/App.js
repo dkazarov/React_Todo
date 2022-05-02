@@ -12,6 +12,7 @@ import './App.scss';
 function App() {
   const [tasks, setTasks] = useState(
     []
+    // Save to local storage
     // JSON.parse(localStorage.getItem('title')) || []
   );
   const [value, setValue] = useState('');
@@ -21,6 +22,7 @@ function App() {
   const [filteredRender, setFilteredRender] = useState(tasks);
   const [editTitle, setEditTitle] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const inputEditRef = useRef(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -32,21 +34,17 @@ function App() {
       });
       setTasks(todos);
       setFilteredRender(todos);
-      ///
-      window.addEventListener('click', (e) => {
-        if (!e.path.includes(inputRef.current)) {
-          setError(false);
-        }
-      });
-      setError(false);
+    });
+    /// Add listener click to global object window
+    window.addEventListener('click', (e) => {
+      if (!e.path.includes(inputRef.current)) setError(false);
+      if (!e.path.includes(inputEditRef.current)) setEdit(false);
     });
   }, []);
 
   // Filtered data
   const search = (searchText, tasks) => {
-    if (!searchText) {
-      return tasks;
-    }
+    if (!searchText) return tasks;
     return tasks.filter((item) =>
       item.title.toLowerCase().includes(searchValue.toLowerCase())
     );
@@ -78,6 +76,7 @@ function App() {
           enqueueSnackbar={enqueueSnackbar}
           setEditTitle={setEditTitle}
           editTitle={editTitle}
+          inputEditRef={inputEditRef}
         />
       </Container>
     </>

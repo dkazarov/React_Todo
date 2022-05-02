@@ -23,15 +23,8 @@ const ToDoList = ({
   enqueueSnackbar,
   setEditTitle,
   editTitle,
+  inputEditRef,
 }) => {
-  const inputEditRef = useRef(null);
-  useEffect(() => {
-    window.addEventListener('click', (e) => {
-      if (!e.path.includes(inputEditRef.current)) {
-        setEdit(false);
-      }
-    });
-  }, []);
   //Delete task from state tasks[]
   const deleteTask = async (id, variant) => {
     await deleteDoc(doc(db, 'todos', id));
