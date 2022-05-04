@@ -4,6 +4,7 @@ import Checkbox from '@mui/material/Checkbox';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
+import CloseIcon from '@mui/icons-material/Close';
 import Tooltip from '@mui/material/Tooltip';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
@@ -40,12 +41,17 @@ const ToDoList = ({
 
   // Save Todo To Key Enter
   const saveTodoToKeyEnter = (id, e, variant) => {
-    if (e.key === 'Enter') {
+    if (editTitle && e.key === 'Enter') {
       saveTask(id, variant);
     }
     if (e.key === 'Escape') {
       setEdit(false);
     }
+  };
+  // Reset Todo to click icon close
+  const resetTodoToKeyEsape = (id, e, variant) => {
+    setEdit(false);
+    enqueueSnackbar('Відмінено', { variant });
   };
 
   //Save item after edit to tasks []
@@ -105,7 +111,7 @@ const ToDoList = ({
               {edit === items.id ? (
                 <TextField
                   id='standard-basic'
-                  label='Змінити на:'
+                  // label='Змінити на:'
                   variant='standard'
                   color='warning'
                   value={editTitle}
@@ -134,20 +140,31 @@ const ToDoList = ({
                 )}
               </span>
               {edit === items.id ? (
-                <span
-                  className=''
-                  onClick={() => saveTask(items.id, items.title, 'info')}
-                >
-                  <Tooltip title='Зберегти'>
-                    <SaveAsIcon
-                      sx={{
-                        color: 'green',
-                        cursor: 'pointer',
-                        hover: { fontSize: '50px' },
-                      }}
-                    />
-                  </Tooltip>
-                </span>
+                <>
+                  <CloseIcon
+                    sx={{
+                      mr: 0.5,
+                      cursor: 'pointer',
+                    }}
+                    onClick={() =>
+                      resetTodoToKeyEsape(items.id, items.title, 'warning')
+                    }
+                  />
+                  <span
+                    className=''
+                    onClick={() => saveTask(items.id, items.title, 'info')}
+                  >
+                    <Tooltip title='Зберегти'>
+                      <SaveAsIcon
+                        sx={{
+                          color: 'green',
+                          cursor: 'pointer',
+                          hover: { fontSize: '50px' },
+                        }}
+                      />
+                    </Tooltip>
+                  </span>
+                </>
               ) : (
                 <span
                   onClick={() => deleteTask(items.id, 'error')}
