@@ -24,6 +24,7 @@ const ToDoList = ({
   setEditTitle,
   editTitle,
   inputEditRef,
+  setTasks,
 }) => {
   //Delete task from state tasks[]
   const deleteTask = async (id, variant) => {
@@ -35,6 +36,16 @@ const ToDoList = ({
   const editTask = (id, title) => {
     setEditTitle(title);
     setEdit(id);
+  };
+
+  // Save Todo To Key Enter
+  const saveTodoToKeyEnter = (id, e, variant) => {
+    if (e.key === 'Enter') {
+      saveTask(id, variant);
+    }
+    if (e.key === 'Escape') {
+      setEdit(false);
+    }
   };
 
   //Save item after edit to tasks []
@@ -100,6 +111,7 @@ const ToDoList = ({
                   value={editTitle}
                   size='small'
                   onChange={(e) => setEditTitle(e.target.value)}
+                  onKeyDown={(e) => saveTodoToKeyEnter(items.id, e, 'info')}
                   autoFocus
                   sx={{ textAlign: 'center', width: '100%' }}
                 />
