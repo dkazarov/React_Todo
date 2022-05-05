@@ -77,7 +77,6 @@ function App() {
           setEditTitle={setEditTitle}
           editTitle={editTitle}
           inputEditRef={inputEditRef}
-          setTasks={setTasks}
         />
       </Container>
     </>

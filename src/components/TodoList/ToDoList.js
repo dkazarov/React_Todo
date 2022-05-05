@@ -25,7 +25,6 @@ const ToDoList = ({
   setEditTitle,
   editTitle,
   inputEditRef,
-  setTasks,
 }) => {
   //Delete task from state tasks[]
   const deleteTask = async (id, variant) => {
@@ -119,7 +118,7 @@ const ToDoList = ({
                   onChange={(e) => setEditTitle(e.target.value)}
                   onKeyDown={(e) => saveTodoToKeyEnter(items.id, e, 'info')}
                   autoFocus
-                  sx={{ textAlign: 'center', width: '100%' }}
+                  sx={{ textAlign: 'center', minWidth: '300px' }}
                 />
               ) : (
                 items.title
