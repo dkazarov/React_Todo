@@ -33,19 +33,20 @@ function App() {
         todos.push({ ...doc.data(), id: doc.id });
       });
       setTasks(todos);
-      setFilteredRender(todos);
+      setFilteredRender(search(searchValue, todos));
     });
     /// Add listener click to global object window
     window.addEventListener('click', (e) => {
       if (!e.path.includes(inputRef.current)) setError(false);
       if (!e.path.includes(inputEditRef.current)) setEdit(false);
     });
-  }, []);
+  }, [searchValue]);
 
   // Filtered data
   const search = (searchText, tasks) => {
+    console.log(searchText);
     if (!searchText) return tasks;
-    return tasks.filter((item) =>
+    return filteredRender.filter((item) =>
       item.title.toLowerCase().includes(searchValue.toLowerCase())
     );
   };
@@ -55,8 +56,6 @@ function App() {
       <Header setSearchValue={setSearchValue} search={search} />
       <Container maxWidth='sm' sx={{ textAlign: 'center' }}>
         <AddTasks
-          filteredRender={filteredRender}
-          setFilteredRender={setFilteredRender}
           error={error}
           setError={setError}
           setTasks={setTasks}
