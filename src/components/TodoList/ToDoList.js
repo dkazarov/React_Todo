@@ -9,6 +9,7 @@ import Tooltip from '@mui/material/Tooltip';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import CircularProgress from '@mui/material/CircularProgress';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase.config';
 
@@ -25,6 +26,7 @@ const ToDoList = ({
   setEditTitle,
   editTitle,
   inputEditRef,
+  isLoading,
 }) => {
   //Delete task from state tasks[]
   const deleteTask = async (id, variant) => {
@@ -94,7 +96,9 @@ const ToDoList = ({
         <Button onClick={() => tabs(false)}>Відкриті</Button>
         <Button onClick={() => tabs(true)}>Завершені</Button>
       </ButtonGroup>
-      {tasks.length !== 0 ? (
+      {isLoading ? (
+        <CircularProgress className='circularProgress' />
+      ) : (
         filteredRender.map((items) => (
           <li
             key={nanoid(3)}
@@ -183,10 +187,6 @@ const ToDoList = ({
             </div>
           </li>
         ))
-      ) : (
-        <div>
-          <h1>Додайте ваше перше завдання</h1>
-        </div>
       )}
     </ul>
   );

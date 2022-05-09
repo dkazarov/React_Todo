@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Container from '@mui/material/Container';
 import Header from './components/Header/Header';
+import CircularProgress from '@mui/material/CircularProgress';
 import AddTasks from './components/AddTasks/AddTasks';
 import ToDoList from './components/TodoList/ToDoList';
 import { useSnackbar } from 'notistack';
@@ -24,8 +25,10 @@ function App() {
   const { enqueueSnackbar } = useSnackbar();
   const inputEditRef = useRef(null);
   const inputRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     const q = query(collection(db, 'todos'), orderBy('createdAt'));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const todos = [];
@@ -34,11 +37,12 @@ function App() {
       });
       setTasks(todos);
       setFilteredRender(search(searchValue, todos));
+      setIsLoading(false);
     });
     /// Add listener click to global object window
     window.addEventListener('click', (e) => {
       if (!e.path.includes(inputRef.current)) setError(false);
-      if (!e.path.includes(inputEditRef.current)) setEdit(false);
+      if (!e.path.includes(inputEditRef.current)) setEdit(true);
     });
   }, [searchValue]);
 
@@ -76,6 +80,7 @@ function App() {
           setEditTitle={setEditTitle}
           editTitle={editTitle}
           inputEditRef={inputEditRef}
+          isLoading={isLoading}
         />
       </Container>
     </>
